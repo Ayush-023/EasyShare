@@ -7,19 +7,36 @@ import { Peer } from "peerjs"
   styleUrls: ['./download.component.css']
 })
 export class DownloadComponent implements OnInit {
+  peer:any;
+  conn:any;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.accept();
+    this.peer = new Peer("", { host: 'localhost', port: 9000, path: '/myapp' });
+    this.peer.on('open', function(id:any) {
+      console.log('My peer ID is: ' + id);
+      });
+  }
+
+  downloadFile(data: any) {
+      const link = document.createElement('a');
+      link.setAttribute('target', '_blank');
+      let url = window.URL.createObjectURL(new Blob([data["file"]]));
+      link.setAttribute('href', url);
+      link.setAttribute('download', data["filename"]);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
   }
 
   accept() {
-    const peer = new Peer("downloader", { host: 'localhost', port: 9000, path: '/myapp' });
-    const conn = peer.connect("uploader");
-    peer.on("connection", (conn) => {
-      conn.on("data", (data) => {
-        
+    this.conn = this.peer.connect("uploader");
+    this.conn.on("open", () => {
+      this.conn.send("send file");
+      this.conn.on("data", (data:any) => {
+        console.log(data);
+        this.downloadFile(data);
       });
     });
   }

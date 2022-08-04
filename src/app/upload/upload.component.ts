@@ -7,25 +7,30 @@ import {Peer} from "peerjs"
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
+  peer:any;
 
   constructor() { }
 
   ngOnInit(): void {
+    //making uploader id as a part of the url (angular routes parameter,.. so on.. last functionality.. then front-end and done.. yay)
+    this.peer = new Peer("uploader", { host: 'localhost', port: 9000, path: '/myapp' });
   }
 
   getFile(event:any) {
     const file = event.target.files[0]
     if (file) {
       const blob = new Blob(event.target.files, { type: file.type })
-      const peer = new Peer("uploader", { host: 'localhost', port: 9000, path: '/myapp' });
-
-      const conn = peer.connect("downloader");
-      conn.on("open", () => {
-        conn.send({
-          file: blob,
-          filename: file.name,
-          filetype: file.type
-        })
+      let data = {
+        file: blob,
+        filename: file.name,
+        filetype: file.type
+      }
+      
+      this.peer.on("connection", (conn:any) => {
+        conn.on("data", (message:any) => {
+            console.log(message);
+            conn.send(data);
+        });
       });
     }
   }
