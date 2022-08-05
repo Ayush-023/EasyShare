@@ -1,1 +1,21 @@
-<router-outlet></router-outlet>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyShare</title>
+</head>
+
+<body>
+  <header class="container-fluid text-center shadow-sm pb-1 bg-light rounded">
+    <a routerLink="/"><span id="header">EasyShare</span></a>
+  </header>
+  <router-outlet></router-outlet>
+  <footer class="container-fluid text-center shadow-sm p-2 bg-light rounded fixed-bottom">
+    <span>Check out the source code @ <a href="https://github.com/Ayush-023/EasyShare">GitHub</a></span>
+  </footer>
+</body>
+
+</html>
