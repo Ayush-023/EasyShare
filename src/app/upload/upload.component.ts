@@ -8,12 +8,22 @@ import {Peer} from "peerjs"
 })
 export class UploadComponent implements OnInit {
   peer:any;
+  id:any;
+  url:any;
 
   constructor() { }
 
   ngOnInit(): void {
-    //making uploader id as a part of the url (angular routes parameter,.. so on.. last functionality.. then front-end and done.. yay)
-    this.peer = new Peer("uploader", { host: 'localhost', port: 9000, path: '/myapp' });
+    this.peer = new Peer("", { host: 'localhost', port: 9000, path: '/myapp' });
+    this.peer.on('open', (id:any) => {
+      console.log('My peer ID is: ' + id);
+      this.id = id;
+    });
+  }
+
+  createLink() {
+    this.url = window.location.origin + '/download/' + this.id;
+    console.log(this.url);
   }
 
   getFile(event:any) {
@@ -25,7 +35,7 @@ export class UploadComponent implements OnInit {
         filename: file.name,
         filetype: file.type
       }
-      
+      this.createLink();
       this.peer.on("connection", (conn:any) => {
         conn.on("data", (message:any) => {
             console.log(message);

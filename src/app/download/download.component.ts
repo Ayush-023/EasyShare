@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Peer } from "peerjs"
 
 @Component({
@@ -9,14 +10,16 @@ import { Peer } from "peerjs"
 export class DownloadComponent implements OnInit {
   peer:any;
   conn:any;
+  uploaderID:any;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.peer = new Peer("", { host: 'localhost', port: 9000, path: '/myapp' });
     this.peer.on('open', function(id:any) {
       console.log('My peer ID is: ' + id);
       });
+      this.uploaderID = this.route.snapshot.paramMap.get('id')!;
   }
 
   downloadFile(data: any) {
@@ -31,7 +34,7 @@ export class DownloadComponent implements OnInit {
   }
 
   accept() {
-    this.conn = this.peer.connect("uploader");
+    this.conn = this.peer.connect(this.uploaderID);
     this.conn.on("open", () => {
       this.conn.send("send file");
       this.conn.on("data", (data:any) => {

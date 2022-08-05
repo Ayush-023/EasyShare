@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UploadComponent } from './upload/upload.component';
 import { DownloadComponent } from './download/download.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadComponent,
-    DownloadComponent
+    DownloadComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
