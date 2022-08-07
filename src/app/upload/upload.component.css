@@ -20,11 +20,13 @@ input:hover {
 }
 
 .myElement {
-    animation: rotating 3s linear infinite;
+    animation: rotating 2s linear infinite;
     width: 15%;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 1.5%;
+    margin-top: 1%;
 }
 
 @keyframes rotating {
@@ -45,11 +47,90 @@ input:hover {
     }
 }
 
-#uploadIcon {
-    width: 15%;
-    display: block;
-    margin-top: 3vh;
-    margin-right: 0%;
-    margin-left: auto;
+.link-url {
+    border: 2px solid darkslategrey;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    font-style: italic;
+    color: black;
 
+}
+
+qrcode {
+    border-right: 2px solid darkslategrey;
+    display: block;
+    padding: 1%;
+    padding-right: 2%;
+    padding-top: 1.5%;
+    padding-left: 1%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#uploadIcon {
+    width: 19%;
+    padding-top: 5%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#lower {
+    margin-top: 4vh;
+    font-size: 1vw;
+    color: rgb(90, 89, 89);
+}
+
+.url-text {
+    font-family: var(--bs-body-font-family);
+    color: darkslategray;
+    font-size: 1.5vw;
+    padding-top: 3vw;
+    word-wrap: break-word;
+}
+
+#disclaim {
+    font-size: 1.2vw;
+}
+
+#share {
+    font-size: 1.6vw;
+}
+
+@media only screen and (max-width: 667px) {
+    .myElement {
+        width: 25%;
+        margin-bottom: 5%;
+    }
+
+    #disclaim {
+        font-size: 3vw;
+    }
+
+    #share {
+        font-size: 4vw;
+    }
+
+    #uploadIcon {
+        width: 20%;
+        padding-top: 2%;
+    }
+
+    #lower {
+        margin-top: 4vh;
+        font-size: 2vw;
+        margin-bottom: 2%;
+        color: rgb(90, 89, 89);
+    }
+
+    .link-url {
+        margin-top: 5%;
+    }
+
+    .url-text {
+        font-family: var(--bs-body-font-family);
+        font-size: 3vw;
+        padding-top: 10vw;
+        word-wrap: break-word;
+    }
 }

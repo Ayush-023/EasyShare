@@ -2,27 +2,27 @@
     <div *ngIf="isUploaded">
         <img src="../../assets/blades.png" alt="rotating blade" class="myElement">
     </div>
-    <ngx-dropzone *ngIf="!isUploaded" [multiple]=false (change)="getFile($event)">
+    <ngx-dropzone *ngIf="!isUploaded" [multiple]=false (change)="getFile($event, false)">
         <ngx-dropzone-label>Drag & Drop your file here or Browse below!</ngx-dropzone-label>
     </ngx-dropzone>
     <div class="input-group mb-3 mt-3" id="fileSelector" *ngIf="!isUploaded">
-        <input type="file" class="form-control" (change)="getFile($event)" id="myfile" required>
+        <input type="file" class="form-control" (change)="getFile($event, true)" id="myfile" required>
         <!-- EasyShare doesn't store any file. It utilizes p2p transfers using WebRTC to directly share files between peers. -->
     </div>
     <div *ngIf="isProcessed" id="afterUpload">
-        <!-- icon or total formatting to be done + size fomat-->
-        <div class="row mu-5">
-            <div class="col"><img src="../../assets/upload.jpg" alt="upload icon" id="uploadIcon"></div>
-            <div class="col">
-                <div>{{fileData["name"]}}</div>
-                <div>{{fileData["size"] | number:'1.2-2'}} kb</div>
-            </div>
+        <!-- size fomat-->
+        <div class="row mu-8 text-center">
+            <div id="share">Share the link/QR code below with your peers to share the file.</div>
+            <div id="disclaim">QR code/link will work as long as this page remains open.</div>
         </div>
-        <div class="row">
-            <p>Share the link/QR code below with your peers to share the file. QR code/link will work as long as this
-                page remains open.</p>
-            <div>
-                <!-- link box + qr -->
+        <div class="row text-center" id="lower">
+            <div class="col-sm-6 col-lg-4"><img src="../../assets/upload.jpg" alt="upload icon" id="uploadIcon">
+                <div>{{fileData["name"]}}</div>
+                <div>{{fileData["size"]}}</div>
+            </div>
+            <div class="col-sm-6 col-lg-8 link-url">
+                <qrcode class="float-start" [qrdata]="url" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                <div class="url-text">{{url}}</div>
             </div>
         </div>
     </div>

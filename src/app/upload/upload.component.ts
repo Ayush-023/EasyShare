@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Peer } from 'peerjs';
+import { IdServiceService } from '../id-service.service';
 
 @Component({
   selector: 'app-upload',
@@ -14,14 +15,44 @@ export class UploadComponent implements OnInit {
   isProcessed: boolean = false;
   fileData: any = {};
 
-  constructor() {}
+  constructor(private idService: IdServiceService) {}
 
   ngOnInit(): void {
-    this.peer = new Peer('', { host: 'localhost', port: 9000, path: '/myapp' });
-    this.peer.on('open', (id: any) => {
-      console.log('My peer ID is: ' + id);
-      this.id = id;
+    this.id = this.idService.getID();
+    this.peer = new Peer(this.id, {
+      host: 'localhost',
+      port: 9000,
+      path: '/myapp',
     });
+    console.log('My peer ID is: ' + this.id);
+    // this.peer.on('open', (id: any) => {
+    //   console.log('My peer ID is: ' + id);
+    //   this.id = id;
+    // });
+  }
+
+  humanFileSize(bytes: number, si = true, dp = 1) {
+    const thresh = si ? 1000 : 1024;
+
+    if (Math.abs(bytes) < thresh) {
+      return bytes + ' B';
+    }
+
+    const units = si
+      ? ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+      : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+    let u = -1;
+    const r = 10 ** dp;
+
+    do {
+      bytes /= thresh;
+      ++u;
+    } while (
+      Math.round(Math.abs(bytes) * r) / r >= thresh &&
+      u < units.length - 1
+    );
+
+    return bytes.toFixed(dp) + ' ' + units[u];
   }
 
   createLink() {
@@ -34,15 +65,22 @@ export class UploadComponent implements OnInit {
     this.createLink();
     this.fileData = {
       name: filename,
-      size: filesize / 1024,
+      size: this.humanFileSize(filesize),
     };
   }
 
-  getFile(event: any) {
-    const file = event.target.files[0];
+  getFile(event: any, method: boolean) {
+    let file: File, blob: Blob;
+    if (method) {
+      file = event.target.files[0];
+      blob = new Blob(event.target.files, { type: file.type });
+    } else {
+      file = event.addedFiles[0];
+      blob = new Blob(event.addedFiles, { type: file.type });
+    }
+    // console.log(file);
     if (file) {
       this.isUploaded = true;
-      const blob = new Blob(event.target.files, { type: file.type });
       let data = {
         file: blob,
         filename: file.name,

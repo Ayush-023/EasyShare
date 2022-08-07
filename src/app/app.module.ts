@@ -8,6 +8,7 @@ import { DownloadComponent } from './download/download.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,13 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     DownloadComponent,
     PageNotFoundComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, NgxDropzoneModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    NgxDropzoneModule,
+    QRCodeModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
