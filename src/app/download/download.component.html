@@ -1,1 +1,12 @@
-<button (click)="accept()">download File</button>
+<div class="container">
+    <div class="text-center mb-4">
+        <img src="../../assets/download.jpg" alt="download icon" id="downloadIcon">
+        <div *ngIf="isFileDataSet">
+            <div>{{fileData["name"]}}</div>
+            <div>{{fileData["size"]}}</div>
+        </div>
+    </div>
+    <div class="d-grid col-6 mx-auto">
+        <button class="btn btn-primary" type="button" (click)="accept()">Download File</button>
+    </div>
+</div>

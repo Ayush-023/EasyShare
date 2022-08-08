@@ -31,6 +31,11 @@ export class UploadComponent implements OnInit {
     // });
   }
 
+  ngOnDestroy(): void {
+    console.log('destroying component ', this.id);
+    this.idService.removeID(this.id);
+  }
+
   humanFileSize(bytes: number, si = true, dp = 1) {
     const thresh = si ? 1000 : 1024;
 

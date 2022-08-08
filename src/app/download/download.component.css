@@ -1,0 +1,17 @@
+#downloadIcon {
+    width: 20%;
+    padding-top: 4%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    font-family: var(--bs-body-font-family);
+    font-style: italic;
+    background-color: deepskyblue;
+}
+
+button:hover {
+    background-color: darkblue;
+}
