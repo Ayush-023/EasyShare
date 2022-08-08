@@ -19,11 +19,12 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.idService.getID();
-    this.peer = new Peer(this.id, {
-      host: 'localhost',
-      port: 9000,
-      path: '/myapp',
-    });
+    this.peer = new Peer(this.id);
+    // , {
+    //   host: '/',
+    //   port: 9000,
+    //   path: '/myapp',
+    // });
     console.log('My peer ID is: ' + this.id);
     // this.peer.on('open', (id: any) => {
     //   console.log('My peer ID is: ' + id);

@@ -18,7 +18,8 @@ export class DownloadComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploaderID = this.route.snapshot.paramMap.get('id')!;
-    this.peer = new Peer('', { host: 'localhost', port: 9000, path: '/myapp' });
+    this.peer = new Peer();
+    // '', { host: '/', port: 9000, path: '/myapp' }
     this.peer.on('open', (id: any) => {
       console.log('My peer ID is: ' + id);
       this.initialCall();
