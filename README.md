@@ -1,6 +1,6 @@
 # EasyShare
 
-EasyShare is a peer to peer file sharing application, which uses WebRTC API to transfer files between peers without any intermediate servers. EasyShare does not store any of your files. After uploading a file, user can share the link/QR code to any number of peers, who can download the file. Transfers are encrypted and file downloads can continue as long as the download link page remains open.
+EasyShare is a peer to peer file sharing application, which uses WebRTC API to transfer files between peers without any intermediate servers. EasyShare does not store any of your files. After uploading a file, user can share the generated link/QR code to any number of peers, who can download the file. Transfers are encrypted and file downloads can continue as long as the link/QR code page remains open.
 
 ## Development
 
